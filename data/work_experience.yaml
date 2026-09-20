@@ -1,0 +1,33 @@
+- title: "Research Assistant"
+  periods: ["09/2024 – 02/2025", "08/2025 – present"]
+  institution: "University of Florida"
+  location: "Gainesville, FL, US"
+  supervisor: "Dr. Diego Jarquín"
+  responsibilities: >
+    My duties at UF involve providing quantitative genetics and statistical
+    support for various projects and collaborations related with plant
+    breeding and tree orchard management programs. Additionally, I advise MS and PhD
+    students and serve as a TA and guest lecturer.
+  responsibilities_short: >
+    Provide quantitative genetics and statistical support across plant breeding
+    and tree orchard research projects; advise MS/PhD students; serve as TA
+    and guest lecturer.
+
+- title: "AI/Plant Biology PhD Resident"
+  periods: ["01/2024 – 07/2024"]
+  institution: "Google LLC"
+  location: "Mountain View, CA, US"
+  supervisor: "Dr. Tim Beissinger"
+  responsibilities: >
+    As a PhD Resident at Google, I reported to the technical lead of the
+    project. I led independent research initiatives, leveraging Google's
+    proprietary data and computational infrastructure to deliver insights
+    for client companies. My role involved producing and reviewing python
+    and R code for data science pipelines, providing scientific and
+    statistical guidance to software engineers and translating research
+    findings into summaries for leadership.
+  responsibilities_short: >
+    Led independent research using Google's proprietary data and infrastructure
+    to deliver insights for client companies; produced and reviewed Python/R
+    data science pipelines; advised software engineers and reported findings
+    to leadership.

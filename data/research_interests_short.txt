@@ -1,0 +1,1 @@
+I apply statistical and machine learning methods to agricultural problems, mainly in plant breeding: predicting phenotypes from multi-omics data (genomic, pedigree, weather, phenomic), identifying genotype-by-environment patterns, and selecting optimal information sources for training better prediction models.

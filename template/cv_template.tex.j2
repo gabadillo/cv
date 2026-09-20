@@ -1,0 +1,274 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{titlesec}
+\usepackage{needspace}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{fontawesome5}
+\usepackage{hyperref}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\definecolor{accent}{HTML}{0021A5}
+\colorlet{accentlight}{accent!35!white}
+
+\hypersetup{colorlinks=true, linkcolor=accent, urlcolor=accent, citecolor=accent}
+
+\renewcommand{\labelitemi}{\textcolor{accent}{\textbullet}}
+
+\titleformat{\section}{\large\bfseries\scshape\color{accent}}{}{0em}{\needspace{6\baselineskip}}[{\color{accent}\titlerule}]
+\titlespacing{\section}{0pt}{1.3em}{0.9em}
+
+\titleformat{\subsection}{\bfseries\color{accent}}{}{0em}{}[\vspace{0.2em}{\color{accentlight}\titlerule[0.6pt]}]
+\titlespacing{\subsection}{0pt}{1em}{0.3em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{{\color{accent}\hrule height\footrulewidth}}
+\fancyfoot[L]{\small\color{gray} Last updated: \VAR{build_date}}
+\fancyfoot[R]{\small\color{gray} Page \thepage\ of \getpagerefnumber{LastPage}}
+\setlist[itemize]{leftmargin=1.4em, itemsep=0.15em, topsep=0.2em}
+
+% a left item (wraps freely) with a right-hand item anchored top-right, never pushed left
+\newcommand{\tworow}[2]{%
+  \begin{tabularx}{\linewidth}{@{}X r@{}}
+  #1 & #2 \\
+  \end{tabularx}%
+}
+
+% same, but the right-hand item is styled as a bold, accent-colored, non-breaking date/label
+\newcommand{\daterow}[2]{%
+  \tworow{#1}{\mbox{\textbf{\textcolor{accent}{#2}}}}%
+}
+
+\newcommand{\entry}[3]{%
+  \daterow{\textbf{#1}}{#2}
+  \textit{#3}\par\vspace{0.35em}
+}
+
+% #1 institution (big title)  #2 location  #3 role/degree  #4 dates  #5 supervisor/advisor
+\newcommand{\bigentry}[5]{%
+  \daterow{{\large\bfseries #1}}{#2}
+  \daterow{\textit{#3}}{#4}
+  {\small\itshape #5}\par\vspace{0.3em}
+}
+
+% #1 degree+field (big title)  #2 dates
+\newcommand{\eduentry}[2]{%
+  \daterow{{\large\bfseries #1}}{#2}
+  \vspace{0.05em}
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE \textbf{\VAR{contact.name}, \VAR{contact.suffix}}}\\[0.3em]
+  \VAR{contact.affiliation} | \VAR{contact.address}\\
+  {\color{accent}\VAR{contact.phone_icon}}\ \VAR{contact.phone} |
+  {\color{accent}\VAR{contact.email_work_icon}}\ \VAR{contact.email_work_label}: \href{mailto:\VAR{contact.email_work}}{\textcolor{black}{\VAR{contact.email_work}}} |
+  {\color{accent}\VAR{contact.email_personal_icon}}\ \VAR{contact.email_personal_label}: \href{mailto:\VAR{contact.email_personal}}{\textcolor{black}{\VAR{contact.email_personal}}}\\[0.2em]
+  \BLOCK{ for link in contact.links }
+  {\color{accent}\VAR{link.icon}}\ \href{\VAR{link.url}}{\VAR{link.label}}\BLOCK{ if not loop.last } | \BLOCK{ endif }
+  \BLOCK{ endfor }
+\end{center}
+
+\vspace{0.1em}
+{\color{accent}\hrule height 1.1pt}
+\vspace{0.3em}
+
+\BLOCK{ if 'research_interests' in sections }
+\section*{Research Interests}
+\VAR{research_interests}\\[0.3em]
+{\small\itshape\textbf{Keywords: }\VAR{keywords | join(', ')}}
+\BLOCK{ endif }
+
+\BLOCK{ if 'education' in sections }
+\section*{Education}
+\BLOCK{ for ed in education }
+\eduentry{\VAR{ed.degree} \VAR{ed.field}}{\VAR{ed.dates}}
+\VAR{ed.institution}\\[0.05em]
+{\small \VAR{ed.advisor}}\\[0.05em]
+{\small \VAR{ed.thesis_label}: \textit{\VAR{ed.thesis}}}\par
+\vspace{0.3em}
+\BLOCK{ endfor }
+\BLOCK{ endif }
+
+\BLOCK{ if 'work_experience' in sections }
+\section*{Work Experience}
+\BLOCK{ for job in work_experience }
+\bigentry{\VAR{job.institution}}{\VAR{job.location}}{\VAR{job.title}}{\VAR{job.periods_fmt}}{Supervisor: \VAR{job.supervisor}}
+\VAR{job.responsibilities}\par
+\vspace{0.4em}
+\BLOCK{ endfor }
+\BLOCK{ endif }
+
+\BLOCK{ if 'publications' in sections }
+\section*{Publications}
+
+\subsection*{Peer-Reviewed Papers}
+\VAR{papers_summary}
+
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.25em]
+\BLOCK{ for p in pubs_articles_published }
+\item \VAR{p.authors_fmt} (\VAR{p.year if p.year else 'n.d.'}). \VAR{p.title}. \textit{\VAR{p.venue_detail}}.
+\BLOCK{ endfor }
+\end{enumerate}
+
+\BLOCK{ if pubs_book_chapters_published }
+\subsection*{Book Chapters}
+\VAR{chapters_summary}
+
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.25em]
+\BLOCK{ for p in pubs_book_chapters_published }
+\item \VAR{p.authors_fmt} (\VAR{p.year if p.year else 'n.d.'}). \VAR{p.title}. \textit{\VAR{p.venue_detail}}.
+\BLOCK{ endfor }
+\end{enumerate}
+\BLOCK{ endif }
+
+\BLOCK{ if pubs_under_revision }
+\subsection*{Manuscripts under revision}
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.25em]
+\BLOCK{ for p in pubs_under_revision }
+\item \VAR{p.authors_fmt} (n.d.). \VAR{p.title}. \VAR{p.venue_detail}.
+\BLOCK{ endfor }
+\end{enumerate}
+\BLOCK{ endif }
+
+\BLOCK{ if pubs_in_prep }
+\subsection*{Manuscripts in preparation}
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.25em]
+\BLOCK{ for p in pubs_in_prep }
+\item \VAR{p.authors_fmt} (n.d.). \VAR{p.title}. \VAR{p.venue_detail}.
+\BLOCK{ endfor }
+\end{enumerate}
+\BLOCK{ endif }
+\BLOCK{ endif }
+
+\BLOCK{ if 'talks' in sections or 'posters' in sections }
+\section*{Scientific Communications}
+
+\BLOCK{ if 'talks' in sections }
+\subsection*{Talks}
+\VAR{talks_summary}
+
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.25em]
+\BLOCK{ for t in talks }
+\item \daterow{\textit{\VAR{t.title}}\BLOCK{ if t.kind != 'Conference presentation' } [\VAR{t.kind}]\BLOCK{ endif }. \VAR{t.event}, \VAR{t.location}.}{\VAR{t.date_fmt}}
+\BLOCK{ endfor }
+\end{enumerate}
+\BLOCK{ endif }
+
+\BLOCK{ if 'posters' in sections }
+\subsection*{Poster Sessions}
+\VAR{posters_summary}
+
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.25em]
+\BLOCK{ for p in posters }
+\item \daterow{\textit{\VAR{p.title}}. \VAR{p.event}, \VAR{p.location}.}{\VAR{p.date_fmt}}
+\BLOCK{ endfor }
+\end{enumerate}
+\BLOCK{ endif }
+\BLOCK{ endif }
+
+\BLOCK{ if 'honors_awards' in sections }
+\section*{Funding and Academic Awards}
+\begin{tabularx}{\linewidth}{@{}l@{\hspace{0.4em}}X r@{\hspace{0.8em}}r@{}}
+\BLOCK{ for a in honors_awards }
+\textcolor{accent}{\textbullet} & \textbf{\VAR{a.name}} & \VAR{a.year} & {\small \VAR{a.amount}} \\[0.3em]
+\BLOCK{ endfor }
+\end{tabularx}
+\BLOCK{ endif }
+
+\BLOCK{ if 'travel_awards' in sections }
+\section*{Travel Awards}
+\begin{tabularx}{\linewidth}{@{}l@{\hspace{0.5em}}X r@{\hspace{1.2em}}r@{}}
+\BLOCK{ for t in travel_awards }
+\textcolor{accent}{\textbullet} & {\small\bfseries \VAR{t.event}}\newline{\small\itshape \VAR{t.funder}} & \VAR{t.year} & \VAR{t.location} \\[0.4em]
+\BLOCK{ endfor }
+\end{tabularx}
+\BLOCK{ endif }
+
+\BLOCK{ if 'teaching' in sections }
+\section*{Teaching Experience}
+{\setlength{\parskip}{0pt}
+\BLOCK{ for cat in teaching_categories }
+\subsection*{\VAR{cat.role}}
+\begin{itemize}[leftmargin=1.4em, itemsep=0.4em, topsep=0.2em, parsep=0pt]
+\BLOCK{ for t in cat.entries }
+\item
+\daterow{\textbf{\VAR{t.course}}}{\VAR{t.dates}}
+\BLOCK{ if t.university and t.department }{\itshape \VAR{t.university} --- \VAR{t.department}}\\[0.05em]\BLOCK{ endif }
+\BLOCK{ if t.location }{\itshape \VAR{t.location}}\\[0.05em]\BLOCK{ endif }
+\BLOCK{ if t.main_instructor }Main instructor: \VAR{t.main_instructor}\\[0.05em]\BLOCK{ endif }
+\BLOCK{ if t.notes }\VAR{t.notes}\\[0.05em]\BLOCK{ endif }
+\BLOCK{ if t.lectures }
+\BLOCK{ for l in t.lectures }
+\hspace{1.2em}\textendash\ \VAR{l}\\
+\BLOCK{ endfor }
+\BLOCK{ endif }
+\BLOCK{ endfor }
+\end{itemize}
+\BLOCK{ endfor }
+}
+\BLOCK{ endif }
+
+\BLOCK{ if 'computer_skills' in sections }
+\section*{Computer Skills}
+\begin{itemize}[itemsep=0pt, topsep=0pt, partopsep=0pt, leftmargin=1.4em]
+\BLOCK{ for c in computer_skills }
+\item \textbf{\VAR{c.category}:} \VAR{c.skills}
+\BLOCK{ endfor }
+\end{itemize}
+\BLOCK{ endif }
+
+\BLOCK{ if 'professional_development' in sections }
+\section*{Professional Development}
+{\setlength{\parskip}{0pt}
+\begin{itemize}[leftmargin=1.4em, itemsep=0.4em, topsep=0.2em, parsep=0pt]
+\BLOCK{ for p in professional_development }
+\item \daterow{\textbf{\VAR{p.course}}}{\hspace{3em}\VAR{p.date}}
+{\itshape \VAR{p.location}}\\[0.05em]
+Main instructor: \VAR{p.main_instructor}\\[0.05em]
+Duration: \VAR{p.duration}
+\BLOCK{ endfor }
+\end{itemize}
+}
+\BLOCK{ endif }
+
+\BLOCK{ if 'software' in sections }
+\section*{Software Development}
+\begin{tabularx}{\linewidth}{@{}l@{\hspace{0.5em}}X r@{}}
+\BLOCK{ for s in software }
+\textcolor{accent}{\textbullet} & \textbf{\VAR{s.name}} (\VAR{s.kind}) --- \VAR{s.role} & \VAR{s.links_fmt} \\[0.3em]
+\BLOCK{ endfor }
+\end{tabularx}
+\BLOCK{ endif }
+
+\BLOCK{ if 'memberships' in sections }
+\section*{Professional Memberships}
+\begin{itemize}
+\BLOCK{ for m in memberships }
+\item \daterow{\VAR{m.organization}}{\VAR{m.dates}}
+\BLOCK{ endfor }
+\end{itemize}
+\BLOCK{ endif }
+
+\BLOCK{ if 'editorial' in sections }
+\section*{Editorial Activities}
+\BLOCK{ for cat in editorial_categories }
+\subsection*{\VAR{cat.kind}}
+\begin{itemize}
+\BLOCK{ for e in cat.entries }
+\item \daterow{\VAR{e.venue}}{\VAR{e.detail}}
+\BLOCK{ endfor }
+\end{itemize}
+\BLOCK{ endfor }
+\BLOCK{ endif }
+
+\end{document}

@@ -1,0 +1,27 @@
+name: "Full Academic CV"
+sections:
+  - contact
+  - research_interests
+  - education
+  - work_experience
+  - publications
+  - talks
+  - posters
+  - honors_awards
+  - travel_awards
+  - teaching
+  - computer_skills
+  - professional_development
+  - software
+  - memberships
+  - editorial
+
+publications:
+  statuses: [published, under_revision, in_prep]
+  first_author_only: false
+  max: null
+
+talks:
+  max: null
+posters:
+  max: null

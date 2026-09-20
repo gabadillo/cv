@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+build/*.tex
+build/*.log
+build/*.aux
+.DS_Store

@@ -1,0 +1,3 @@
+My research focuses on applying statistical methods to agricultural problems, mostly within the plant breeding field. I am particularly interested in using quantitative genetics and its statistical foundation for trait prediction in academic research, paired with the industry machine learning paradigm and its focus on real-world applicability and scalability.
+
+Current lines of my research explore multi-omics datasets (including genomic, pedigree, weather, and phenomic records) for phenotypic prediction and genotype-by-environment pattern identification. Additionally, I work on developing methodologies to select optimal information sources for training better models and implementing non-linear procedures to predict dynamic, time-related traits.

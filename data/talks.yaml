@@ -1,0 +1,41 @@
+- date: "2025-05-11"
+  title: "The importance of data quality"
+  kind: "Conference presentation"
+  event: "Conference on Applied Statistics in Agriculture and Natural Resources"
+  location: "Gainesville, FL, US"
+  include_resume: false
+
+- date: "2025-01-10"
+  title: "Integration of multi-omics for phenotypic prediction in plant breeding"
+  kind: "Conference presentation"
+  event: "XXXII Plant and Animal Genome Conference"
+  location: "San Diego, CA, US"
+  include_resume: 2
+
+- date: "2024-11-11"
+  title: "Integrating machine learning in the plant breeding toolbox: Benefits and challenges"
+  kind: "Conference presentation"
+  event: "ASA, CSSA & SSSA International Annual Meetings"
+  location: "San Antonio, TX, US"
+  include_resume: false
+
+- date: "2024-10-02"
+  title: "Integration of multi-omics and other interactions in predictive models"
+  kind: "Keynote address"
+  event: "VIII International Meeting on Plant Breeding: AI for Scientific Breakthrough: Applications and Innovations"
+  location: "Piracicaba, Brazil"
+  include_resume: 1
+
+- date: "2024-11-16"
+  title: "Phenotypic prediction of abortion rate in lodgepole pine using non-genetic multi-omics datasets"
+  kind: "Conference presentation"
+  event: "Alberta Forestry Industry Meeting"
+  location: "Edmonton, AB, Canada"
+  include_resume: false
+
+- date: "2023-11-07"
+  title: "Integration of multi-omic datasets and their interactions into predictive models: A tree species example"
+  kind: "Conference presentation"
+  event: "II GxExM Symposium"
+  location: "Gainesville, FL, US"
+  include_resume: false

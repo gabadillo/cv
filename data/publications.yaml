@@ -1,0 +1,238 @@
+# status: published | under_revision | in_prep
+# type: article | book_chapter
+# first_author: true if "Garcia-Abadillo, J." (any spelling variant) is the first listed author
+# year: integer, or omit/null for under_revision / in_prep entries (sorted as most recent)
+
+- type: article
+  status: published
+  first_author: true
+  include_resume: 1
+  authors: "Garcia-Abadillo, J., Isidro Sánchez, J., Jarquin, D., Galeano, E., & Thomas, B. R."
+  year: 2026
+  title: "Prediction of conelet mortality rates in interior lodgepole pine using phenomic, nutritional, and environmental data"
+  venue_detail: "Frontiers in Plant Science, 17, 1845181"
+
+- type: article
+  status: published
+  first_author: true
+  include_resume: 3
+  authors: "Garcia-Abadillo, J., Adunola, P., Aguilar, F., Trujillo-Montenegro, J., Riascos, J., Persa, R., Sanchez, J., & Jarquin, D."
+  year: 2024
+  title: "Sparse testing designs for optimizing predictive ability in sugarcane populations"
+  venue_detail: "Frontiers in Plant Science, 15, 1400000"
+
+- type: article
+  status: published
+  first_author: true
+  include_resume: 2
+  authors: "Garcia-Abadillo, J., Barba, P., Carvalho, T., Sosa-Zuniga, V., Lozano, R., Carvalho, H., Garcia-Rojas, M., Salazar, E., & Sanchez, J."
+  year: 2024
+  title: "Dissecting the complex genetic basis of pre-and post-harvest traits in Vitis vinifera L. using genome-wide association studies"
+  venue_detail: "Horticulture Research, 11(2), uhad283"
+
+- type: article
+  status: published
+  first_author: true
+  include_resume: 4
+  authors: "Garcia-Abadillo, J., Morales, L., Buerstmayr, H., Michel, S., Lillemo, M., Holzapfel, J., Hartl, L., Akdemir, D., Carvalho, H., & Isidro-Sanchez, J."
+  year: 2023
+  title: "Alternative scoring methods of fusarium head blight resistance for genomic assisted breeding"
+  venue_detail: "Frontiers in Plant Science, 13, 1057914"
+
+- type: article
+  status: published
+  first_author: false
+  include_resume: false
+  authors: "Caballero, E., Garcia-Abadillo, J., & Jarquin, D."
+  year: 2026
+  title: "Missing comparability: When genomic selection faces field variability. A case study in soybeans"
+  venue_detail: "The Plant Genome, 19(2), e70264"
+
+- type: article
+  status: published
+  first_author: false
+  include_resume: false
+  authors: "Proma, S., Garcia-Abadillo, J., Sagae, V., Sacks, E., Leakey, A. D., Zhao, H., ... & Jarquin, D."
+  year: 2026
+  title: "Multi-trait multi-environment genomic prediction strategies for Miscanthus sacchariflorus"
+  venue_detail: "Frontiers in Plant Science, 17, 1835247"
+
+- type: article
+  status: published
+  first_author: false
+  include_resume: false
+  authors: "Kaur, S., Sleper, J., Dalid, C., Garcia-Abadillo, J., Whitaker, V. M., & Jarquin, D."
+  year: 2026
+  title: "Modeling production curves in a strawberry breeding program to optimize early season productivity"
+  venue_detail: "Frontiers in Plant Science, 17, 1808529"
+
+- type: article
+  status: published
+  first_author: false
+  include_resume: false
+  authors: "Proma, S., Garcia-Abadillo, J., Shaik, A., & Jarquin, D."
+  year: 2026
+  title: "Optimizing genomic prediction–based sparse testing designs for multi-environment trials in tetraploid potato cultivars"
+  venue_detail: "Crop Science, 66(2), e70260"
+
+- type: article
+  status: published
+  first_author: false
+  include_resume: false
+  authors: "Fritsche-Neto, R., Resende, R. T., Olivoto, T., Garcia-Abadillo, J., Nascimento, M., Bahia, M. A. M., ... & Vieira, R. A."
+  year: 2025
+  title: "Prediction-based breeding: Modern tools to optimize and reshape programs"
+  venue_detail: "Crop Science, 65(5), e70175"
+
+- type: article
+  status: published
+  first_author: false
+  include_resume: false
+  authors: "Menor de Gaspar, J., Domínguez Rondón, A., García-Abadillo, J., Knox, R., Bokore, F. E., Boyle, K., ... & Isidro y Sánchez, J."
+  year: 2025
+  title: "Mapping novel yellow and leaf rust loci and predicting resistance in cross derived Canadian durum wheat"
+  venue_detail: "The Plant Genome, 18(4), e70124"
+
+- type: article
+  status: published
+  first_author: false
+  include_resume: false
+  authors: "Evangelista, J. S. P. C., Dias, K. O. D. G., Pastina, M. M., Chaves, S., Guimarães, L. J. M., Hidalgo, J., Garcia-Abadillo, J., et al., & Jarquin, D."
+  year: 2025
+  title: "Optimizing the single-step model for predicting fumonisins resistance in maize hybrids accounting for the genotype-by-environment interaction"
+  venue_detail: "Frontiers in Genetics, 16, 1475452"
+
+- type: article
+  status: published
+  first_author: false
+  include_resume: 5
+  authors: "Messina, C., Garcia-Abadillo, J., Powell, O., Tomura, S., Zare, A., Ganapathysubramanian, B., & Cooper, M."
+  year: 2025
+  title: "Toward a general framework for AI-enabled prediction in crop improvement"
+  venue_detail: "Theoretical and Applied Genetics, 138(7), 1–15"
+
+- type: article
+  status: published
+  first_author: false
+  include_resume: false
+  authors: "Gonzalez, F., Garcia-Abadillo, J., & Jarquin, D."
+  year: 2025
+  title: "Introducing CHiDO—A No Code Genomic Prediction software implementation for the characterization and integration of driven omics"
+  venue_detail: "The Plant Genome, 18(1), e20519"
+
+- type: article
+  status: published
+  first_author: false
+  include_resume: false
+  authors: "Carvalho, H., Rio, S., Garcia-Abadillo, J., & Sanchez, J."
+  year: 2024
+  title: "Revisiting superiority and stability metrics of cultivar performances using genomic data: derivations of new estimators"
+  venue_detail: "Plant Methods, 20(1), 85"
+
+- type: article
+  status: published
+  first_author: false
+  include_resume: false
+  authors: "Lopez-Fernandez, M., Garcia-Abadillo, J., Uauy, C., Ruiz, M., Giraldo, P., & Pascual, L."
+  year: 2023
+  title: "Genome wide association in Spanish bread wheat landraces identifies six key genomic regions that constitute potential targets for improving grain yield related traits"
+  venue_detail: "Theoretical and Applied Genetics, 136(12), 244"
+
+- type: article
+  status: published
+  first_author: false
+  include_resume: false
+  authors: "Din, A., Gul, R., Khan, H., Garcia-Abadillo, J., Persa, R., Sanchez, J., & Jarquin, D."
+  year: 2024
+  title: "Assessing the Genotype-by-Environment GxE Interaction in Desi Chickpea via the Bayesian Additive Main Effects and Multiplicative Interaction Model"
+  venue_detail: "Agriculture, 14(2), 215"
+
+- type: book_chapter
+  status: published
+  first_author: false
+  include_resume: false
+  authors: "Alemu, A., Montesinos-Lopez, O. A., Sagae, V. S., Garcia-Abadillo, J., Nascimento, M., Jarquin, D., & Ortiz, R."
+  year: 2026
+  title: "Genomic Selection Role to Mitigate G×E Interaction in Plant Breeding"
+  venue_detail: "Genotype × Environment Interactions and its Implications for Plant Breeding, 343-364"
+
+- type: book_chapter
+  status: published
+  first_author: false
+  include_resume: false
+  authors: "Ellur, V., Ambati, S., Jarquin, D., Garcia-Abadillo, J., & Mural, R. V."
+  year: 2026
+  title: "Emerging Approaches to Sustainable Agriculture and Food Security"
+  venue_detail: "Next Generation Crop Protection for Agricultural Sustainability and Food Security, 44-62"
+
+- type: article
+  status: under_revision
+  first_author: false
+  include_resume: false
+  authors: "Garapati, R., Garcia-Abadillo, J., & Jarquin, D."
+  year: null
+  title: "Hyper-parameter Optimization of Deep Learning for Genomic Prediction: Concepts, Strategies and Inference"
+  venue_detail: "Under revision"
+
+- type: article
+  status: under_revision
+  first_author: false
+  include_resume: false
+  authors: "Zhou, X., Garcia-Abadillo, J., & Jarquin, D."
+  year: null
+  title: "Development of Conditional Cores Via Super Saturated Designs for Genetic Diversity Based Prediction Models"
+  venue_detail: "Under revision"
+
+- type: article
+  status: under_revision
+  first_author: false
+  include_resume: false
+  authors: "Martin Zapien-Macias, J., Garcia-Abadillo, J., Munoz, P. R., & Nunez, G. H."
+  year: null
+  title: "Agronomic Strategies to Improve Canopy Light Interception and Fruit Ripening Concentration in Southern Highbush Blueberry in North-Central Florida"
+  venue_detail: "Under revision"
+
+- type: article
+  status: under_revision
+  first_author: false
+  include_resume: false
+  authors: "Barmukh, R., Garg, V., Thudi, M., Roorkiwal, M., Chitikineni, A., Garcia-Abadillo, J., Jarquin, D., et al., & Varshney, R."
+  year: null
+  title: "Harnessing Genebank Diversity for Chickpea Improvement through Genomics and AI-Guided Analysis of 10,225 Genomes"
+  venue_detail: "Under revision"
+
+- type: article
+  status: under_revision
+  first_author: false
+  include_resume: false
+  authors: "Adaskaveg, J. A., Hershberger, J., Farmer, A., Penmetsa, R. V., Garcia-Lopez, I., Garcia-Abadillo, J., ... & Diepenbrock, C. H." 
+  year: null
+  title: "Genotypic and multi-environment phenotypic evaluation of the lima bean USDA National Plant Germplasm System collection"
+  venue_detail: "Under revision"
+
+- type: article
+  status: under_revision
+  first_author: false
+  include_resume: false
+  authors: "Acharya, S. R., Garcia-Abadillo, J., Lyerly, J., Brown-Guedira, G., Jarquin, D., & Bandillo, N."
+  year: null
+  title: "Reaction Norm Modeling of High-Dimensional Genomic and Environmental Data Improves Prediction Accuracy in Winter Wheat"
+  venue_detail: "Under revision"
+
+- type: article
+  status: in_prep
+  first_author: true
+  include_resume: false
+  authors: "Garcia-Abadillo, J., Barba, P., & Isidro y Sánchez, J."
+  year: null
+  title: "Performance of Genomic Selection Models and Cross-Validation Strategies for Diverse Traits in Stratified Grapevine Populations"
+  venue_detail: "Manuscript in preparation"
+
+- type: article
+  status: in_prep
+  first_author: false
+  include_resume: false
+  authors: "Arcos Jaramillo, J. A., Garcia Abadillo, J., Murray, J., Manzanero, B., Mata, L. A., Sadeghibaniani, S., Jarquin, D., & Sandoya, G."
+  year: null
+  title: "Impact of season variability and soil types on Genotype × Environment (G×E) interaction on lettuce cultivated under low phosphorus rates"
+  venue_detail: "Manuscript in preparation"

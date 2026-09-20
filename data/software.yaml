@@ -1,0 +1,14 @@
+# github/demo/docs: set to a URL, or omit (~) if not applicable — omitted links are not rendered.
+- name: "CHiDO"
+  kind: "R Shiny app"
+  role: "Author & Maintainer"
+  github: ~
+  demo: "https://jarquinlab.shinyapps.io/chido/"
+  docs: "https://acsess.onlinelibrary.wiley.com/doi/10.1002/tpg2.20519"
+
+- name: "bayesammi"
+  kind: "CRAN package"
+  role: "Contributor"
+  github: ~
+  demo: ~
+  docs: "https://cran.r-project.org/web/packages/bayesammi/index.html"

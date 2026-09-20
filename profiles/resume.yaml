@@ -1,0 +1,21 @@
+name: "Resume"
+template: "resume_template.tex.j2"
+sections:
+  - contact
+  - research_interests
+  - education
+  - work_experience
+  - publications
+  - talks
+  - software
+  - computer_skills
+
+research_interests:
+  short: true
+
+publications:
+  statuses: [published]
+  select_by: include_resume
+
+talks:
+  select_by: include_resume

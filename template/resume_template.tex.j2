@@ -1,0 +1,116 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=0.55in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{fontawesome5}
+\usepackage{hyperref}
+
+\definecolor{accent}{HTML}{0021A5}
+\colorlet{accentlight}{accent!35!white}
+
+\hypersetup{colorlinks=true, linkcolor=accent, urlcolor=accent, citecolor=accent}
+
+\renewcommand{\labelitemi}{\textcolor{accent}{\textbullet}}
+
+\titleformat{\section}{\bfseries\scshape\color{accent}}{}{0em}{}[{\color{accent}\titlerule}]
+\titlespacing{\section}{0pt}{0.4em}{0.2em}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.18em}
+\setlist[itemize]{leftmargin=1.2em, itemsep=0pt, topsep=0.1em, parsep=0pt}
+\setlist[enumerate]{leftmargin=1.3em, itemsep=0.1em, topsep=0.1em, parsep=0pt}
+
+% a left item (wraps freely) with a right-hand item anchored top-right
+\newcommand{\tworow}[2]{%
+  \begin{tabularx}{\linewidth}{@{}X r@{}}
+  #1 & #2 \\
+  \end{tabularx}%
+}
+\newcommand{\daterow}[2]{%
+  \tworow{#1}{\mbox{\textbf{\textcolor{accent}{#2}}}}%
+}
+
+\begin{document}
+
+\begin{center}
+  {\Large \textbf{\VAR{contact.name}, \VAR{contact.suffix}}}\\[0.15em]
+  \small \VAR{contact.affiliation} | \VAR{contact.address} |
+  {\color{accent}\VAR{contact.email_personal_icon}}\ \href{mailto:\VAR{contact.email_personal}}{\textcolor{black}{\VAR{contact.email_personal}}} |
+  {\color{accent}\VAR{contact.phone_icon}}\ \VAR{contact.phone}\\[0.15em]
+  \small
+  \BLOCK{ for link in contact.links }
+  {\color{accent}\VAR{link.icon}}\ \href{\VAR{link.url}}{\VAR{link.label}}\BLOCK{ if not loop.last } | \BLOCK{ endif }
+  \BLOCK{ endfor }
+\end{center}
+\vspace{0.1em}
+{\color{accent}\hrule height 1pt}
+
+\BLOCK{ if 'research_interests' in sections }
+\section*{Research Summary}
+\VAR{research_interests}
+\BLOCK{ endif }
+
+\BLOCK{ if 'education' in sections }
+\section*{Education}
+\begin{itemize}
+\BLOCK{ for ed in education }
+\item \daterow{\textbf{\VAR{ed.degree} \VAR{ed.field}} --- \VAR{ed.institution_short}}{\VAR{ed.dates}}
+\BLOCK{ if ed.degree.startswith('PhD') }
+{\small \VAR{ed.advisor}}\par
+\BLOCK{ endif }
+\BLOCK{ endfor }
+\end{itemize}
+\BLOCK{ endif }
+
+\BLOCK{ if 'work_experience' in sections }
+\section*{Work Experience}
+\begin{itemize}
+\BLOCK{ for job in work_experience }
+\item \daterow{\textbf{\VAR{job.title}} --- \VAR{job.institution}, \VAR{job.location}}{\VAR{job.periods_fmt}}
+{\small \VAR{job.responsibilities_short}}\par
+\BLOCK{ endfor }
+\end{itemize}
+\BLOCK{ endif }
+
+\BLOCK{ if 'publications' in sections }
+\section*{Selected Publications}
+\begin{enumerate}[leftmargin=1.3em, itemsep=0.1em, topsep=0.1em]
+\BLOCK{ for p in pubs_articles_published }
+\item \VAR{p.authors_fmt} (\VAR{p.year if p.year else 'n.d.'}). \VAR{p.title}. \textit{\VAR{p.venue_detail}}.
+\BLOCK{ endfor }
+\end{enumerate}
+\BLOCK{ endif }
+
+\BLOCK{ if 'talks' in sections }
+\section*{Selected Talks}
+\begin{enumerate}
+\BLOCK{ for t in talks }
+\item \textbf{Garcia-Abadillo}, J. (\VAR{t.date[:4]}). \textit{\VAR{t.title}}. \VAR{t.event}, \VAR{t.location}.
+\BLOCK{ endfor }
+\end{enumerate}
+\BLOCK{ endif }
+
+\BLOCK{ if 'software' in sections }
+\section*{Software Development}
+\begin{tabularx}{\linewidth}{@{}l@{\hspace{0.4em}}X r@{}}
+\BLOCK{ for s in software }
+\textcolor{accent}{\textbullet} & \textbf{\VAR{s.name}} (\VAR{s.kind}) --- \VAR{s.role} & \VAR{s.links_fmt} \\[0.2em]
+\BLOCK{ endfor }
+\end{tabularx}
+\BLOCK{ endif }
+
+\BLOCK{ if 'computer_skills' in sections }
+\section*{Computer Skills}
+\begin{itemize}
+\BLOCK{ for c in computer_skills }
+\item \textbf{\VAR{c.category}:} \VAR{c.skills}
+\BLOCK{ endfor }
+\end{itemize}
+\BLOCK{ endif }
+
+\end{document}
