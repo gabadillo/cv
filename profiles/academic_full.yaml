@@ -17,7 +17,7 @@ sections:
   - editorial
 
 publications:
-  statuses: [published, under_revision, in_prep]
+  statuses: [published, accepted, under_revision, in_prep]
   first_author_only: false
   max: null
 

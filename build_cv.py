@@ -85,9 +85,10 @@ def build_publications(profile_cfg):
     first_author_only = cfg.get("first_author_only", False)
     max_n = cfg.get("max")
 
+    raw = raw[::-1]  # entries are appended at the bottom of the file, so later entries count as newer
     filtered = [p for p in raw if p["status"] in statuses]
     if first_author_only:
-        filtered = [p for p in filtered if p["first_author"]]
+        filtered = [p for p in filtered if p.get("first_author")]
 
     # escape only display text, after all filtering on raw control fields is done
     filtered = [
@@ -97,12 +98,17 @@ def build_publications(profile_cfg):
     for p in filtered:
         p["authors_fmt"] = bold_own_name(p["authors"])
 
+    for p in filtered:
+        p["year_fmt"] = "in press" if p["status"] == "accepted" else (p.get("year") or "n.d.")
+
     published = [p for p in filtered if p["status"] == "published"]
     if cfg.get("select_by") == "include_resume":
-        published = [p for p in published if p.get("include_resume")]
+        # hand-picked list: accepted papers can be picked too (shown as "in press")
+        published = [p for p in filtered if p["status"] in ("published", "accepted") and p.get("include_resume")]
         published.sort(key=lambda p: p["include_resume"])
     else:
-        published.sort(key=lambda p: not p["first_author"])  # stable: first-author first, YAML order otherwise
+        # first-author first, then newest to oldest; ties keep reversed YAML order (bottom entry first)
+        published.sort(key=lambda p: (not p["first_author"], -(p.get("year") or 9999)))
         if max_n:
             published = published[:max_n]
 
@@ -110,6 +116,10 @@ def build_publications(profile_cfg):
     chapters_published = [p for p in published if p["type"] == "book_chapter"]
     under_revision = [p for p in filtered if p["status"] == "under_revision"]
     in_prep = [p for p in filtered if p["status"] == "in_prep"]
+    # accepted: listed under Peer-Reviewed Papers as "in press", never counted as published
+    accepted = [p for p in filtered if p["status"] == "accepted"]
+    # first-author first (read from the author list if first_author is omitted); ties: bottom entry first
+    accepted.sort(key=lambda p: not p.get("first_author", bool(NAME_RE.match(p["authors"]))))
 
     # stats computed off the FULL published set, not affected by `max`
     all_published = [p for p in raw if p["status"] == "published"]
@@ -119,8 +129,11 @@ def build_publications(profile_cfg):
 
     papers_summary = (
         f"I have authored or co-authored {n_articles} peer-reviewed paper{'s' if n_articles != 1 else ''} "
-        f"({n_articles_first} as first author)."
+        f"({n_articles_first} as first author)"
     )
+    if accepted:
+        papers_summary += f", with {len(accepted)} more accepted for publication"
+    papers_summary += "."
     chapters_summary = (
         f"I have contributed to {n_chapters} book chapter{'s' if n_chapters != 1 else ''}."
     )
@@ -132,12 +145,14 @@ def build_publications(profile_cfg):
         "pubs_book_chapters_published": chapters_published,
         "pubs_under_revision": under_revision,
         "pubs_in_prep": in_prep,
+        "pubs_accepted": accepted,
         "_stats": {
             "n_articles_published": n_articles,
             "n_articles_first_author": n_articles_first,
             "n_book_chapters": n_chapters,
             "n_under_revision": len(under_revision),
             "n_in_prep": len(in_prep),
+            "n_accepted": len(accepted),
         },
     }
 
@@ -265,7 +280,7 @@ def build_context(profile_name):
     else:
         ctx.update({
             "pubs_articles_published": [], "pubs_book_chapters_published": [],
-            "pubs_under_revision": [], "pubs_in_prep": [],
+            "pubs_under_revision": [], "pubs_in_prep": [], "pubs_accepted": [],
             "papers_summary": "", "chapters_summary": "",
         })
 
@@ -317,6 +332,70 @@ def compile_pdf(tex_path):
     print(result.stderr)
 
 
+PUB_REQUIRED = ("type", "status", "first_author", "authors", "title", "venue_detail")
+PUB_STATUSES = {"published", "accepted", "under_revision", "in_prep"}
+PUB_TYPES = {"article", "book_chapter"}
+
+
+def check_include_resume(entries, label, errors):
+    picks = [e["include_resume"] for e in entries if e.get("include_resume")]
+    for n in picks:
+        if not isinstance(n, int) or isinstance(n, bool):
+            errors.append(f"{label}: include_resume must be a number or false, got {n!r}")
+    dupes = sorted({n for n in picks if picks.count(n) > 1})
+    if dupes:
+        errors.append(f"{label}: include_resume position(s) used more than once: {dupes}")
+
+
+def validate_data():
+    """Catch hand-editing mistakes before they silently end up in the PDF."""
+    errors = []
+    titles = {}
+
+    pubs = load_yaml("publications") or []
+    for i, p in enumerate(pubs, 1):
+        where = f"publications.yaml entry #{i} ({str(p.get('title', '?'))[:50]!r})"
+        required = [k for k in PUB_REQUIRED if not (k == "first_author" and p.get("status") == "accepted")]
+        missing = [k for k in required if k not in p or p[k] in (None, "")]
+        if missing:
+            errors.append(f"{where}: missing {', '.join(missing)}")
+            continue
+        if p["status"] not in PUB_STATUSES:
+            errors.append(f"{where}: status {p['status']!r} must be one of {sorted(PUB_STATUSES)}")
+        if p["type"] not in PUB_TYPES:
+            errors.append(f"{where}: type {p['type']!r} must be one of {sorted(PUB_TYPES)}")
+        if p["status"] == "published" and not isinstance(p.get("year"), int):
+            errors.append(f"{where}: published entries need a numeric year, got {p.get('year')!r}")
+        if "first_author" not in p:
+            pass  # optional for accepted papers
+        elif not isinstance(p["first_author"], bool):
+            errors.append(f"{where}: first_author must be true or false, got {p['first_author']!r}")
+        elif p["first_author"] != bool(NAME_RE.match(p["authors"])):
+            errors.append(f"{where}: first_author is {str(p['first_author']).lower()} but the author list says otherwise")
+        titles.setdefault(p["title"].strip().lower(), []).append(where)
+    check_include_resume([p for p in pubs if p.get("status") in ("published", "accepted")], "publications.yaml", errors)
+
+    for places in titles.values():
+        if len(places) > 1:
+            errors.append("same title appears more than once (e.g. an accepted paper re-added as published): "
+                          + "; ".join(places))
+
+    for name in ("talks", "posters"):
+        entries = load_yaml(name) or []
+        for i, e in enumerate(entries, 1):
+            try:
+                datetime.strptime(str(e.get("date")), "%Y-%m-%d")
+            except ValueError:
+                errors.append(f"{name}.yaml entry #{i} ({str(e.get('title', '?'))[:50]!r}): date must be YYYY-MM-DD, got {e.get('date')!r}")
+        check_include_resume(entries, f"{name}.yaml", errors)
+
+    if errors:
+        print("Data problems found, nothing was built:\n")
+        for err in errors:
+            print(f"  - {err}")
+        sys.exit(1)
+
+
 def build_one(profile_name):
     ctx, profile_cfg = build_context(profile_name)
     template_name = profile_cfg.get("template", "cv_template.tex.j2")
@@ -344,6 +423,7 @@ def main():
     else:
         profile_names = args.profile
 
+    validate_data()
     for profile_name in profile_names:
         print(f"\n=== Building '{profile_name}' ===")
         build_one(profile_name)

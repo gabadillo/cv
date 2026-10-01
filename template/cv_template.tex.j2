@@ -120,6 +120,15 @@
 \BLOCK{ endfor }
 \end{enumerate}
 
+\BLOCK{ if pubs_accepted }
+\needspace{3\baselineskip}\textcolor{accent}{\textbf{Accepted}}\par\nopagebreak
+\begin{itemize}[leftmargin=1.6em, itemsep=0.25em, topsep=0pt, partopsep=0pt]
+\BLOCK{ for p in pubs_accepted }
+\item \VAR{p.authors_fmt} (in press). \VAR{p.title}. \textit{\VAR{p.venue_detail}}.
+\BLOCK{ endfor }
+\end{itemize}
+\BLOCK{ endif }
+
 \BLOCK{ if pubs_book_chapters_published }
 \subsection*{Book Chapters}
 \VAR{chapters_summary}

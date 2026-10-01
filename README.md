@@ -50,9 +50,26 @@ represent you best.
 ## Adding a new publication, talk, poster, award, etc.
 
 Open the matching file in `data/` (e.g. `data/publications.yaml`) and add one entry,
-following the format of the existing entries. Then re-run the render command above.
+following the format of the existing entries. Add new entries at the **bottom** of the file.
+Publications are shown first-author first, then newest to oldest by year; within the same year,
+entries lower in the file come first. Then re-run the render command above.
 Counts, first-author tally, ordering, and the footer's "Last updated" date all update
 automatically — nothing else to edit by hand.
+
+## Safety checks
+
+Every build first checks the data and stops (building nothing) if it finds a problem, listing
+each one: missing fields, a typo in `status`/`type`, a published paper without a year,
+`first_author` not matching the author list, the same title twice, two entries with the same
+`include_resume` number, or a talk/poster date not in `YYYY-MM-DD` form.
+
+## Accepted (not yet published) papers
+
+Add them to `data/publications.yaml` like any other paper, with `status: accepted`. They are
+listed at the bottom of Peer-Reviewed Papers under a blue **Accepted** label, bulleted, shown as
+"(in press)" (any `year` is ignored), and not counted in the published total; the summary line
+adds ", with N more accepted for publication". `first_author` is optional for them. When the paper
+comes out, change `status` to `published` and set its `year`.
 
 ## Adding a new profile (a trimmed version of the CV)
 

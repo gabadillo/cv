@@ -14,7 +14,7 @@ research_interests:
   short: true
 
 publications:
-  statuses: [published]
+  statuses: [published, accepted]
   select_by: include_resume
 
 talks:

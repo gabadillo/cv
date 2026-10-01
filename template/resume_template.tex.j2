@@ -87,7 +87,7 @@
 \section*{Selected Publications}
 \begin{enumerate}[leftmargin=1.3em, itemsep=0.1em, topsep=0.1em]
 \BLOCK{ for p in pubs_articles_published }
-\item \VAR{p.authors_fmt} (\VAR{p.year if p.year else 'n.d.'}). \VAR{p.title}. \textit{\VAR{p.venue_detail}}.
+\item \VAR{p.authors_fmt} (\VAR{p.year_fmt}). \VAR{p.title}. \textit{\VAR{p.venue_detail}}.
 \BLOCK{ endfor }
 \end{enumerate}
 \BLOCK{ endif }
